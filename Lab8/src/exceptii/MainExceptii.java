@@ -15,7 +15,7 @@ public class MainExceptii {
             String text = "Hello World. This is my java program";
             byte arr[] = text.getBytes();
             fos.write(arr);
-            int a = 7;
+            int a = 8;
             checkValue(a);
         } catch (FileNotFoundException e) { //este aruncata de FileOutputStream
             throw new RuntimeException(e);
