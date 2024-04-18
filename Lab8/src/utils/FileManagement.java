@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.*;
+import java.util.List;
 
 public class FileManagement {
 
@@ -10,7 +11,7 @@ public class FileManagement {
         try(FileOutputStream fos = new FileOutputStream(outputFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos)){
             oos.writeObject(obj);
-            oos.flush();
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -41,6 +42,36 @@ public class FileManagement {
              bw.newLine();
         } catch (IOException e) {
                 throw new RuntimeException(e);
+        }
+    }
+
+    //citire cu ObjectInputStream a unor obiecte scrise sub forma de List
+    public static List<Object> citireObiecteDinFisier2(String fileName) {
+        List<Object> o ;
+        try(FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis)){
+            o = (List<Object>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return o;
+    }
+
+    //scriere cu ObjectOutputStream a unor obiecte sub forma de List
+    public static void scriereObiecteInFisier2(String outputFile, Object... obj) {
+        try(FileOutputStream fos = new FileOutputStream(outputFile);
+            ObjectOutputStream oos = new ObjectOutputStream(fos)){
+            for (Object o : obj) {
+                oos.writeObject(o);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
