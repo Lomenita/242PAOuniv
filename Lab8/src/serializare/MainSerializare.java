@@ -17,8 +17,8 @@ public class MainSerializare {
 
         //Lista circulara Curs 8
         Nod prim = serializareListaCirculara();
-        FileManagement.scriereObiectInFisier(listaSerie, prim);
-        Object[] prim2 = FileManagement.citireObiectDinFisier(listaSerie);
+        FileManagement.scriereObiecteInFisier(listaSerie, prim);
+        Object[] prim2 = FileManagement.citireObiecteDinFisier(listaSerie);
         if(prim2.length == 1) {
             afisareSerieNodCitita((Nod) prim2[0]);
         }
@@ -29,8 +29,8 @@ public class MainSerializare {
         Persoana p1 = new Persoana("Pop", "Ioan" , 20);
         Persoana p2 = new Persoana("Preda", "Maria" , 14);
 
-        FileManagement.scriereObiectInFisier(fisierPersoane, p1, p2);
-        Arrays.stream(FileManagement.citireObiectDinFisier(fisierPersoane)).toList().forEach(p -> System.out.println(p));
+        FileManagement.scriereObiecteInFisier(fisierPersoane, p1, p2);
+        Arrays.stream(FileManagement.citireObiecteDinFisier(fisierPersoane)).toList().forEach(p -> System.out.println(p));
     }
 
     private static Nod serializareListaCirculara() {

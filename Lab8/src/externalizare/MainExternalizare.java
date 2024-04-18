@@ -11,8 +11,8 @@ public class MainExternalizare {
         PersoanaExternalizable p1 = new PersoanaExternalizable("Ene", "Stefan" , 20);
         PersoanaExternalizable p2 = new PersoanaExternalizable("Anton", "Dana" , 14);
 
-        FileManagement.scriereObiectInFisier(fisierPersoaneExt, p1, p2);
+        FileManagement.scriereObiecteInFisier(fisierPersoaneExt, p1, p2);
 
-        Arrays.stream(FileManagement.citireObiectDinFisier(fisierPersoaneExt)).toList().forEach(pe -> System.out.println(pe));
+        Arrays.stream(FileManagement.citireObiecteDinFisier(fisierPersoaneExt)).toList().forEach(pe -> System.out.println(pe));
     }
 }

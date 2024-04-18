@@ -6,8 +6,8 @@ public class FileManagement {
 
     //metoda cu numar variabil de argumente. Vor fi transmise ca un Array
     //dupa tipul obiectului se pun 3 puncte
-    public static void scriereObiecteInFisier(String outputFile, boolean append, Object... obj) {
-        try(FileOutputStream fos = new FileOutputStream(outputFile, append);
+    public static void scriereObiecteInFisier(String outputFile, Object... obj) {
+        try(FileOutputStream fos = new FileOutputStream(outputFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos)){
             oos.writeObject(obj);
             oos.flush();
@@ -41,20 +41,6 @@ public class FileManagement {
              bw.newLine();
         } catch (IOException e) {
                 throw new RuntimeException(e);
-        }
-    }
-
-
-
-    public static void scriereObiectInFisier(String outputFile, boolean append, Object obj) {
-        try(FileOutputStream fos = new FileOutputStream(outputFile, append);
-            ObjectOutputStream oos = new ObjectOutputStream(fos)){
-            oos.writeObject(obj);
-            oos.flush();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
