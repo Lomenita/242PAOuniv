@@ -1,4 +1,4 @@
-package exercitii;
+package exercitii.stream.varianta2;
 
 import exceptii.MyException;
 import serializare.model.PersoanaExercitiu;
@@ -7,8 +7,7 @@ import utils.FileManagement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static utils.Constants.FISIER_OCTETI;
+import static utils.Constants.FISIER_OCTETI2;
 
 /*
 scrierea in forma de ArrayList - vezi persoanaExercitiuList
@@ -55,8 +54,8 @@ public class MainEx2ScriereOctetiVarianta2 {
                     break;
                 }
             }
-          //persoanaExercitiuList este List, deci cand va fi citit va fi tot cu List
-           FileManagement.scriereObiecteInFisier2(FISIER_OCTETI, persoanaExercitiuList);
+           //persoanaExercitiuList este List, deci cand va fi citit va fi tot cu List
+           FileManagement.scriereObiecteInFisier(FISIER_OCTETI2, persoanaExercitiuList);
         }
 
 

@@ -1,11 +1,11 @@
-package exercitii;
+package exercitii.stream.varianta1;
 
 import exceptii.MyException;
 import serializare.model.PersoanaExercitiu;
 import utils.ExceptionManagement;
 import java.io.*;
 import java.util.Scanner;
-import static utils.Constants.FISIER_OCTETI;
+import static utils.Constants.FISIER_OCTETI1;
 
 public class MainEx2ScriereOcteti {
     public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class MainEx2ScriereOcteti {
         Scanner scanner = new Scanner(System.in);
 
         try(
-             FileOutputStream fos = new FileOutputStream(FISIER_OCTETI, true);
+             FileOutputStream fos = new FileOutputStream(FISIER_OCTETI1, true);
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
             while (true) {

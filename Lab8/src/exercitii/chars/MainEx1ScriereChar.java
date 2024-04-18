@@ -1,4 +1,4 @@
-package exercitii;
+package exercitii.chars;
 
 import exceptii.MyException;
 import utils.ExceptionManagement;
