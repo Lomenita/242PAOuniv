@@ -52,20 +52,6 @@ public class FileManagement {
         }
     }
 
-    //scriere cu ObjectOutputStream a unor obiecte sub forma de List
-    public static void scriereObiecteInFisier2(String outputFile, Object... obj) {
-        try(FileOutputStream fos = new FileOutputStream(outputFile);
-            ObjectOutputStream oos = new ObjectOutputStream(fos)){
-            for (Object o : obj) {
-                oos.writeObject(o);
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     /*
     ObjectOutputStream se va inchide si deschide la fiecare persoana noua
     ObjectOutputStream are un header. Va fi copiat cu AppendableObjectOutputStream
