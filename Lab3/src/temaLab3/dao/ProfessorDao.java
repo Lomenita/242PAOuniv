@@ -6,7 +6,7 @@ import java.sql.*;
 
 import static temaLab3.utils.Constants.*;
 
-public class ProfessorDao implements DaoInterface{
+public class ProfessorDao implements DaoInterface<Professor>{
 
     private static ProfessorDao professorDao;
     private ProfessorDao(){}
@@ -19,9 +19,9 @@ public class ProfessorDao implements DaoInterface{
     }
 
     @Override
-    public void add(Object object) throws SQLException {
+    public void add(Professor professor) throws SQLException {
         String sql = "INSERT INTO proiectpao.profesor VALUES (?, ?, ?, ?, ?);";
-        Professor professor = (Professor) object;
+
         try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
             PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, professor.getYear());
@@ -33,6 +33,7 @@ public class ProfessorDao implements DaoInterface{
         }
     }
 
+    @Override
     public Professor read(String name) throws SQLException {
         String sql = "SELECT * FROM proiectpao.profesor s WHERE s.name = ?";
         ResultSet rs = null;
@@ -59,21 +60,20 @@ public class ProfessorDao implements DaoInterface{
         return null;
     }
 
-    public void delete(Object entity) throws SQLException {
+    @Override
+    public void delete(Professor professor) throws SQLException {
         String sql = "DELETE FROM proiectpao.profesor s WHERE s.name = ?";
-        Person person = (Professor) entity;
         try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
             PreparedStatement statement = connection.prepareStatement(sql);) {
-            statement.setString(1, person.getName());
+            statement.setString(1, professor.getName());
             statement.executeQuery();
         }
     }
 
     @Override
-    public void update(Object object)  throws SQLException{
+    public void update(Professor professor)  throws SQLException{
         String sql = "UPDATE proiectpao.profesor set course = ? , year = ?" +
                 " , phoneNumber = ? , emailAddress = ? where name = ?";
-        Professor professor = (Professor) object;
         try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
             PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, professor.getCourse());
