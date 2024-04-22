@@ -5,6 +5,7 @@ public class Student extends Person{
     private float averageMark;
     private String clasa;
 
+    public Student() {}
     public Student(Person person) {
         super(person.getName(), person.getPhoneNumber(), person.getEmailAddress());
     }
@@ -13,20 +14,31 @@ public class Student extends Person{
         this.studentNumber = studentNumber;
     }
 
+    public int getStudentNumber(){
+        return studentNumber;
+    }
+
     public void setAverageMark(float averageMark) {
         this.averageMark = averageMark;
     }
 
+    public float getAverageMark(){
+        return averageMark;
+    }
     public void setClasa(String clasa) {
         this.clasa = clasa;
+    }
+
+    public String getClasa(){
+        return clasa;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                " name= '" + getName() + '\'' +
-                ", phoneNumber='" + getPhoneNumber() + '\'' +
-                ", emailAddress='" + getEmailAddress() + '\'' +
+                " name = '" + super.getName() + '\'' +
+                ", phoneNumber='" + super.getPhoneNumber() + '\'' +
+                ", emailAddress='" + super.getEmailAddress() + '\'' +
                 ", studentNumber= '" + studentNumber + '\'' +
                 ", averageMark= '" + averageMark + '\'' +
                 ", clasa=" + clasa +

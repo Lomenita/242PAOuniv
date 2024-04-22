@@ -4,31 +4,47 @@ import temaLab3.daoservices.PersonRepositoryService;
 import temaLab3.model.Person;
 import temaLab3.model.Professor;
 import temaLab3.model.Student;
+import temaLab3.utils.FileManagement;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
-import static temaLab3.utils.Constants.PROFESSOR;
-import static temaLab3.utils.Constants.STUDENT;
+import static temaLab3.utils.Constants.*;
 
 public class PersonService {
     private PersonRepositoryService databaseService;
 
     public PersonService(){
-       this.databaseService = new PersonRepositoryService();
+        this.databaseService = new PersonRepositoryService();
     }
 
     public void create(Scanner scanner) {
         System.out.println("Enter type of person [student/profesor]:");
         String typeOfPerson = scanner.nextLine().toLowerCase();
         if(!typeOfPersonValidation(typeOfPerson)) { return; }
-        personInit(scanner, typeOfPerson);
+        try {
+            personInit(scanner, typeOfPerson);
+        } catch (SQLException e) {
+            System.out.println("Persoana nu se poate crea " + e.getSQLState() + " " + e.getMessage());
+        }
     }
 
     public void read(Scanner scanner) {
         System.out.println("name:");
         String name = scanner.nextLine();
-        databaseService.getStudentByName(name);
-        databaseService.getProfessorByName(name);
+        try {
+            databaseService.getStudentByName(name);
+            FileManagement.scriereFisierChar(AUDIT_FILE, "citire persoana " + name);
+        } catch (SQLException e) {
+            System.out.println("Student nu se poate gasi " + e.getSQLState() + " " + e.getMessage());
+        }
+
+        try{
+            databaseService.getProfessorByName(name);
+            FileManagement.scriereFisierChar(AUDIT_FILE, "citire persoana " + name);
+        } catch (SQLException e) {
+            System.out.println("Profesor nu se poate gasi " + e.getSQLState() + " " + e.getMessage());
+        }
     }
 
     public void delete(Scanner scanner) {
@@ -37,7 +53,12 @@ public class PersonService {
         System.out.println("typeOfPerson:");
         String typeOfPerson = scanner.nextLine();
         if(!typeOfPersonValidation(typeOfPerson)) { return; }
-        databaseService.removePerson(typeOfPerson, name);
+        try {
+            databaseService.removePerson(typeOfPerson, name);
+            FileManagement.scriereFisierChar(AUDIT_FILE, "stergere persoana " + name);
+        } catch (SQLException e) {
+            System.out.println("Persoana nu se poate stearsa " + e.getSQLState() + " " + e.getMessage());
+        }
     }
 
     public void update(Scanner scanner) {
@@ -58,6 +79,12 @@ public class PersonService {
         }else{
             studentInit(scanner, (Student) person);
         }
+
+        try {
+            databaseService.update(person);
+        }catch (SQLException e){
+            System.out.println("Persoana nu se poate updata " + e.getSQLState() + " " + e.getMessage());
+        }
     }
 
     public boolean typeOfPersonValidation(String typeOfPerson) {
@@ -69,7 +96,7 @@ public class PersonService {
         return true;
     }
 
-    private void personInit(Scanner scanner, String typeOfPerson) {
+    private void personInit(Scanner scanner, String typeOfPerson) throws SQLException {
         System.out.println("name:");
         String name = scanner.nextLine();
 
@@ -87,8 +114,14 @@ public class PersonService {
             person = student;
         }
 
-        databaseService.addPerson(person);
-        System.out.println("Created " + person);
+        try {
+            databaseService.addPerson(person);
+            System.out.println("Created " + person);
+            FileManagement.scriereFisierChar(AUDIT_FILE, "add persoana " + person.getName());
+        } catch (SQLException e) {
+            System.out.println("Cannot create " + person + " exception " + e.getSQLState() + " " + e.getMessage());
+        }
+
     }
 
     private Person setGeneralInfo(String name, Scanner scanner) {

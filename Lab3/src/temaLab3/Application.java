@@ -48,7 +48,6 @@ public class Application {
         System.out.println("update");
         System.out.println("delete");
         System.out.println("quit");
-        System.out.println("get");
         System.out.println("Enter command:");
     }
 }

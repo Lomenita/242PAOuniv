@@ -1,32 +1,87 @@
 package temaLab3.dao;
 
+import temaLab3.model.Person;
 import temaLab3.model.Professor;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
 
-public class ProfessorDao {
+import static temaLab3.utils.Constants.*;
 
-    //se face static pentru a apartine clasei; odata initializat
-    // nu se initializeaza iar in cazul utilizarii in mai multe clase
-    private static List<Professor> professors = new ArrayList<>();
+public class ProfessorDao implements DaoInterface{
 
-    public Professor read(String name) {
-        if(!professors.isEmpty()){
-            for(Professor p : professors){
-                if(p.getName().equals(name)){
-                    return p;
-                }
+    private static ProfessorDao professorDao;
+    private ProfessorDao(){}
+
+    public static ProfessorDao getInstance(){
+        if(professorDao == null){
+            professorDao = new ProfessorDao();
+        }
+        return professorDao;
+    }
+
+    @Override
+    public void add(Object object) throws SQLException {
+        String sql = "INSERT INTO proiectpao.profesor VALUES (?, ?, ?, ?, ?);";
+        Professor professor = (Professor) object;
+        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
+            PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setInt(1, professor.getYear());
+            statement.setString(2, professor.getCourse());
+            statement.setString(3, professor.getName());
+            statement.setString(4, professor.getPhoneNumber());
+            statement.setString(5, professor.getEmailAddress());
+            statement.executeUpdate();
+        }
+    }
+
+    public Professor read(String name) throws SQLException {
+        String sql = "SELECT * FROM proiectpao.profesor s WHERE s.name = ?";
+        ResultSet rs = null;
+        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, name);
+            rs = statement.executeQuery();
+
+            while (rs.next()){
+                Professor professor = new Professor();
+                professor.setCourse(rs.getString("course"));
+                professor.setYear(rs.getInt("year"));
+                professor.setName(rs.getString("name"));
+                professor.setPhoneNumber(rs.getString("phoneNumber"));
+                professor.setEmailAddress(rs.getString("emailAddress"));
+                return  professor;
+            }
+        }finally {
+            if(rs != null) {
+                rs.close();
             }
         }
         return null;
     }
 
-    public void delete(Professor professor) {
-        professors.remove(professor);
+    public void delete(Object entity) throws SQLException {
+        String sql = "DELETE FROM proiectpao.profesor s WHERE s.name = ?";
+        Person person = (Professor) entity;
+        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
+            PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setString(1, person.getName());
+            statement.executeQuery();
+        }
     }
 
-    public void create(Professor professor) {
-        professors.add(professor);
+    @Override
+    public void update(Object object)  throws SQLException{
+        String sql = "UPDATE proiectpao.profesor set course = ? , year = ?" +
+                " , phoneNumber = ? , emailAddress = ? where name = ?";
+        Professor professor = (Professor) object;
+        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
+            PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setString(1, professor.getCourse());
+            statement.setInt(2, professor.getYear());
+            statement.setString(3, professor.getPhoneNumber());
+            statement.setString(4, professor.getEmailAddress());
+            statement.setString(5, professor.getName());
+            statement.executeUpdate();
+        }
     }
-
 }

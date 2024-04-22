@@ -2,32 +2,90 @@ package temaLab3.dao;
 
 import temaLab3.model.Person;
 import temaLab3.model.Student;
-import java.util.ArrayList;
-import java.util.List;
 
-public class StudentDao {
+import java.sql.*;
 
+import static temaLab3.utils.Constants.*;
 
-    //se face static pentru a apartine clasei; odata initializat
-    // nu se initializeaza iar in cazul utilizarii in mai multe clase
-    private static List<Student> students = new ArrayList<>();
+public class StudentDao implements DaoInterface{
 
-    public void create(Student student) {
-        students.add(student);
+    private static StudentDao studentDao;
+
+    private StudentDao(){}
+
+    public static StudentDao getInstance(){
+        if(studentDao == null){
+            studentDao = new StudentDao();
+        }
+        return studentDao;
     }
 
-    public Student read(String name) {
-        if(!students.isEmpty()){
-            for(Student s : students){
-                if(s.getName().equals(name)){
-                    return s;
-                }
+    @Override
+    public void add(Object object) throws SQLException {
+        String sql = "INSERT INTO proiectpao.student VALUES (?, ?, ?, ?, ?, ?);";
+        Student student = (Student) object;
+        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
+            PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setInt(1, student.getStudentNumber());
+            statement.setFloat(2, student.getAverageMark());
+            statement.setString(3, student.getClasa());
+            statement.setString(4, student.getName());
+            statement.setString(5, student.getPhoneNumber());
+            statement.setString(6, student.getEmailAddress());
+            statement.executeUpdate();
+        }
+    }
+
+    public Student read(String name) throws SQLException {
+        String sql = "SELECT * FROM proiectpao.student s WHERE s.name = ?";
+        ResultSet rs = null;
+        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ) {
+            statement.setString(1, name);
+            rs = statement.executeQuery();
+
+            while (rs.next()){
+                Student s = new Student();
+                s.setStudentNumber(rs.getInt("studentNumber"));
+                s.setAverageMark(rs.getFloat("averageMark"));
+                s.setClasa(rs.getString("clasa"));
+                s.setName(rs.getString("name"));
+                s.setPhoneNumber(rs.getString("phoneNumber"));
+                s.setEmailAddress(rs.getString("emailAddress"));
+                return  s;
+            }
+        }finally {
+            if(rs != null) {
+                rs.close();
             }
         }
         return null;
     }
 
-    public void delete(Person person) {
-        students.remove(person);
+    public void delete(Object entity) throws SQLException {
+        String sql = "DELETE FROM proiectpao.student s WHERE s.name = ?";
+        Person person = (Student) entity;
+        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
+            PreparedStatement statement = connection.prepareStatement(sql);) {
+            statement.setString(1, person.getName());
+            statement.executeUpdate();
+        }
+    }
+
+    @Override
+    public void update(Object object)  throws SQLException{
+        String sql = "UPDATE proiectpao.student a set a.studentNumber = ? , a.averageMark = ?" +
+                " , a.phoneNumber = ? , a.emailAddress = ? where a.name = ?";
+        Student student = (Student) object;
+        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+            preparedStatement.setInt(1, student.getStudentNumber());
+            preparedStatement.setFloat(2, student.getAverageMark());
+            preparedStatement.setString(3, student.getPhoneNumber());
+            preparedStatement.setString(4, student.getEmailAddress());
+            preparedStatement.setString(5, student.getName());
+            preparedStatement.executeUpdate();
+        }
     }
 }

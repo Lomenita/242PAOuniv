@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         String sql = "SELECT * FROM PERSOANA";
+        int id;
         try(Connection conn =
                 DriverManager.getConnection("jdbc:mysql://localhost/demo",
                 "root","pwd");
@@ -15,9 +16,8 @@ public class Main {
             ResultSet resultSet = statement.executeQuery(sql);
         ) {
 
-
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                id = resultSet.getInt("id");
                 String nume = resultSet.getString("nume");
                 String prenume = resultSet.getString("prenume");
                 int varsta = resultSet.getInt("varsta");
@@ -29,6 +29,8 @@ public class Main {
                 FileManagement.scriereFisierChar("persoane.csv",
                         persoana);
             }
+
+
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
