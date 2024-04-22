@@ -67,7 +67,7 @@ public class ProfessorDao implements DaoInterface<Professor>{
         try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
             PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, professor.getName());
-            statement.executeQuery();
+            statement.executeUpdate();
         }
     }
 
