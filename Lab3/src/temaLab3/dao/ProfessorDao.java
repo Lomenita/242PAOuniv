@@ -6,6 +6,7 @@ import java.sql.*;
 
 import static temaLab3.utils.Constants.*;
 
+//singleton
 public class ProfessorDao implements DaoInterface<Professor>{
 
     private static ProfessorDao professorDao;
