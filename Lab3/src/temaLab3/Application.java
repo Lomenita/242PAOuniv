@@ -3,10 +3,11 @@ package temaLab3;
 import temaLab3.service.BibliotecaService;
 import temaLab3.service.PersonService;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         Scanner scanner = new Scanner(System.in);
         PersonService personService = new PersonService();

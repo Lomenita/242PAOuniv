@@ -1,31 +1,20 @@
 package temaLab3.dao;
 
+import temaLab3.daoservices.DatabaseConnection;
 import temaLab3.model.Student;
-
 import java.sql.*;
 
-import static temaLab3.utils.Constants.*;
-
-//singleton
 public class StudentDao implements DaoInterface<Student>{
 
-    private static StudentDao studentDao;
+    private Connection connection = DatabaseConnection.getConnection();
 
-    private StudentDao(){}
-
-    public static StudentDao getInstance(){
-        if(studentDao == null){
-            studentDao = new StudentDao();
-        }
-        return studentDao;
-    }
+    public StudentDao() throws SQLException {}
 
     @Override
     public void add(Student student) throws SQLException {
         String sql = "INSERT INTO proiectpao.student VALUES (?, ?, ?, ?, ?, ?);";
 
-        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
-            PreparedStatement statement = connection.prepareStatement(sql);) {
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, student.getStudentNumber());
             statement.setFloat(2, student.getAverageMark());
             statement.setString(3, student.getClasa());
@@ -40,9 +29,7 @@ public class StudentDao implements DaoInterface<Student>{
     public Student read(String name) throws SQLException {
         String sql = "SELECT * FROM proiectpao.student s WHERE s.name = ?";
         ResultSet rs = null;
-        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
-            PreparedStatement statement = connection.prepareStatement(sql);
-        ) {
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, name);
             rs = statement.executeQuery();
 
@@ -67,8 +54,7 @@ public class StudentDao implements DaoInterface<Student>{
     public void delete(Student student) throws SQLException {
         String sql = "DELETE FROM proiectpao.student s WHERE s.name = ?";
 
-        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
-            PreparedStatement statement = connection.prepareStatement(sql);) {
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, student.getName());
             statement.executeUpdate();
         }
@@ -79,8 +65,7 @@ public class StudentDao implements DaoInterface<Student>{
         String sql = "UPDATE proiectpao.student a set a.studentNumber = ? , a.averageMark = ?" +
                 " , a.phoneNumber = ? , a.emailAddress = ? where a.name = ?";
 
-        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setInt(1, student.getStudentNumber());
             preparedStatement.setFloat(2, student.getAverageMark());
             preparedStatement.setString(3, student.getPhoneNumber());

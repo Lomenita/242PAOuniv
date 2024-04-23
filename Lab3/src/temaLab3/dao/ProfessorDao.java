@@ -1,30 +1,20 @@
 package temaLab3.dao;
 
-import temaLab3.model.Person;
+import temaLab3.daoservices.DatabaseConnection;
 import temaLab3.model.Professor;
 import java.sql.*;
 
-import static temaLab3.utils.Constants.*;
-
-//singleton
 public class ProfessorDao implements DaoInterface<Professor>{
 
-    private static ProfessorDao professorDao;
-    private ProfessorDao(){}
+    private Connection connection = DatabaseConnection.getConnection();
 
-    public static ProfessorDao getInstance(){
-        if(professorDao == null){
-            professorDao = new ProfessorDao();
-        }
-        return professorDao;
-    }
+    public ProfessorDao() throws SQLException {}
 
     @Override
     public void add(Professor professor) throws SQLException {
         String sql = "INSERT INTO proiectpao.profesor VALUES (?, ?, ?, ?, ?);";
 
-        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
-            PreparedStatement statement = connection.prepareStatement(sql);) {
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setInt(1, professor.getYear());
             statement.setString(2, professor.getCourse());
             statement.setString(3, professor.getName());
@@ -38,9 +28,7 @@ public class ProfessorDao implements DaoInterface<Professor>{
     public Professor read(String name) throws SQLException {
         String sql = "SELECT * FROM proiectpao.profesor s WHERE s.name = ?";
         ResultSet rs = null;
-        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
-            PreparedStatement statement = connection.prepareStatement(sql);
-        ) {
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, name);
             rs = statement.executeQuery();
 
@@ -64,8 +52,7 @@ public class ProfessorDao implements DaoInterface<Professor>{
     @Override
     public void delete(Professor professor) throws SQLException {
         String sql = "DELETE FROM proiectpao.profesor s WHERE s.name = ?";
-        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
-            PreparedStatement statement = connection.prepareStatement(sql);) {
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, professor.getName());
             statement.executeUpdate();
         }
@@ -75,8 +62,7 @@ public class ProfessorDao implements DaoInterface<Professor>{
     public void update(Professor professor)  throws SQLException{
         String sql = "UPDATE proiectpao.profesor set course = ? , year = ?" +
                 " , phoneNumber = ? , emailAddress = ? where name = ?";
-        try(Connection connection = DriverManager.getConnection(JDBC_DRIVER, JDBC_USER, JDBC_PWD);
-            PreparedStatement statement = connection.prepareStatement(sql);) {
+        try(PreparedStatement statement = connection.prepareStatement(sql);) {
             statement.setString(1, professor.getCourse());
             statement.setInt(2, professor.getYear());
             statement.setString(3, professor.getPhoneNumber());

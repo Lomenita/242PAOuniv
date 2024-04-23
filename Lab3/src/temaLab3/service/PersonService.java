@@ -14,7 +14,7 @@ import static temaLab3.utils.Constants.*;
 public class PersonService {
     private PersonRepositoryService databaseService;
 
-    public PersonService(){
+    public PersonService() throws SQLException {
         this.databaseService = new PersonRepositoryService();
     }
 
