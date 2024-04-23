@@ -8,6 +8,8 @@ instalare my sql https://dev.mysql.com/downloads/installer/
 
 Ca sa fie ca pe youtube, pentru Windows se alege mysql-installer-community-8.0.32.0.msi
 
+![mysqlCreateDatabase.png](mysqlCreateDatabase.png)
+
 **Oracle**
 https://www.oracle.com/database/technologies/xe-downloads.html
 Oracle Database 21c Express Edition for Windows x64
