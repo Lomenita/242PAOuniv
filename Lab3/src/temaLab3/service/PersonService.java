@@ -34,14 +34,14 @@ public class PersonService {
         String name = scanner.nextLine();
         try {
             databaseService.getStudentByName(name);
-            FileManagement.scriereFisierChar(AUDIT_FILE, "citire persoana " + name);
+            FileManagement.scriereFisierChar(AUDIT_FILE, "citire student " + name);
         } catch (SQLException e) {
             System.out.println("Student nu se poate gasi " + e.getSQLState() + " " + e.getMessage());
         }
 
         try{
             databaseService.getProfessorByName(name);
-            FileManagement.scriereFisierChar(AUDIT_FILE, "citire persoana " + name);
+            FileManagement.scriereFisierChar(AUDIT_FILE, "citire profesor " + name);
         } catch (SQLException e) {
             System.out.println("Profesor nu se poate gasi " + e.getSQLState() + " " + e.getMessage());
         }
