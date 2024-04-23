@@ -5,10 +5,18 @@ import temaLab3.model.Professor;
 import java.sql.*;
 
 public class ProfessorDao implements DaoInterface<Professor>{
+    private static ProfessorDao professorDao;
 
     private Connection connection = DatabaseConnection.getConnection();
 
-    public ProfessorDao() throws SQLException {}
+    private ProfessorDao() throws SQLException {}
+
+    public static ProfessorDao getInstance() throws SQLException {
+        if(professorDao == null){
+            professorDao = new ProfessorDao();
+        }
+        return professorDao;
+    }
 
     @Override
     public void add(Professor professor) throws SQLException {

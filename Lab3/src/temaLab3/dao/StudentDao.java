@@ -6,9 +6,18 @@ import java.sql.*;
 
 public class StudentDao implements DaoInterface<Student>{
 
+    private static StudentDao studentDao;
     private Connection connection = DatabaseConnection.getConnection();
 
-    public StudentDao() throws SQLException {}
+    public StudentDao() throws SQLException {
+    }
+
+    public static StudentDao getInstance() throws SQLException {
+        if(studentDao == null){
+            studentDao = new StudentDao();
+        }
+        return studentDao;
+    }
 
     @Override
     public void add(Student student) throws SQLException {

@@ -15,8 +15,8 @@ public class PersonRepositoryService {
     private StudentDao studentDao;
 
     public PersonRepositoryService() throws SQLException {
-        this.professorDao = new ProfessorDao();
-        this.studentDao = new StudentDao();
+        this.professorDao = ProfessorDao.getInstance();
+        this.studentDao = StudentDao.getInstance();
     }
 
     public Student getStudentByName(String name) throws SQLException {
