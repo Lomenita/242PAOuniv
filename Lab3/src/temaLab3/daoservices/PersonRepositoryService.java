@@ -11,13 +11,10 @@ import static temaLab3.utils.Constants.PROFESSOR;
 
 public class PersonRepositoryService {
 
-    private ProfessorDao professorDao;
-    private StudentDao studentDao;
+    private ProfessorDao professorDao = ProfessorDao.getInstance();
+    private StudentDao studentDao = StudentDao.getInstance();
 
-    public PersonRepositoryService() throws SQLException {
-        this.professorDao = ProfessorDao.getInstance();
-        this.studentDao = StudentDao.getInstance();
-    }
+    public PersonRepositoryService() throws SQLException {}
 
     public Student getStudentByName(String name) throws SQLException {
         Student student = studentDao.read(name);
