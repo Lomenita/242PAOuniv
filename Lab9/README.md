@@ -59,3 +59,29 @@ Conectare DataSource in Intellij
 ![ConectareDataSourceInIntellij.png](ConectareDataSourceInIntellij.png)
 
 ![DataSourceAndScripts.png](DataSourceAndScripts.png)
+
+
+
+### Intellij poate downloada Driver jar pentru baza de date dorita.
+
+#### Cum gasesc locatia acestui driver jar:
+
+In modulul din dreapta, Database, se apasa pe + apoi se alege Driver:
+![Screenshot 2024-04-24 160147.png](Screenshot%202024-04-24%20160147.png)
+
+In cazul in care driverul nu exista pe calculator, exista optiunea de download in dreapta:
+Exemplu pentru un driver de MongoDB
+![Screenshot 2024-04-24 161006.png](Screenshot%202024-04-24%20161006.png)
+
+Gasire cale catre un driver de MySql existent pe masina:
+
+Din lista din stanga cu drivere se alege MySql:
+![Screenshot 2024-04-24 160417.png](Screenshot%202024-04-24%20160417.png)
+
+Se selecteaza Add
+![Screenshot 2024-04-24 160641.png](Screenshot%202024-04-24%20160641.png)
+
+Se selecteaza Native Library Path
+![Screenshot 2024-04-24 161308.png](Screenshot%202024-04-24%20161308.png)
+
+In partea de sus se va vedea calea. Se expandeaza folderul jdbc-drivers si se va gasi calea catre driver jar ul dorit.
