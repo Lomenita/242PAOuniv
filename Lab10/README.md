@@ -162,6 +162,7 @@ Cu stream:
   **lista.stream().operatiune**
 
   **forEach** : executa anumita prelucrare
+
   **sorted** : face sortare cu ajutorul comparatorului
 
   **filter** : pastreaza doar cazurile selectate
