@@ -1,0 +1,19 @@
+   1.Sa se defineasca un array de Integers.
+        Sa se sorteze descrescator folosind lambda expression
+        Sa se calculeze suma intregilor folosind reduce
+        Sa se calculeze suma intregilor folosind summingInt
+        Sa se calculeze media folosind lambda averagingInt
+        Sa se afiseze min folosind lambda.
+        Sa se afiseze max folosind lambda
+        Sa se afiseze intregii mai mari de o anumita valoare folosind filter
+
+   2. Se defineste un array de primitive int
+        sa se sorteze crescator
+        Sa se sorteze descrescator -> se foloseste stream
+        Lista cu elementele ar2 ridicate la patrat (map)
+
+   3. Se defineste o lista de obiecte Magazin
+   Magazin are: numeMagazin, numarAngajati
+
+   sa se afiseze magazinele grupate by numarAngajati
+   sa se afiseze suma angajatilor din toate magazinele
