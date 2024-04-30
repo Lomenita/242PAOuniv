@@ -169,10 +169,23 @@ Cu stream:
 
   **limit** : pastreaza un string cu un numar de elemente specificat
 
+  **boxed** : face conversie intre tipuri. 
+
+    Conversie de la array de primitive la array de obiecte:
+    int[] input = {0, 1, 2, 3, 4};
+    Integer[] expected = {0, 1, 2, 3, 4};
+    
+    Integer[] output = Arrays.stream(input).boxed().toArray(Integer[]::new);
+
   **max**
 
   **min** : se aplica pe comparator
-  
+     se obtine un Optional. Pentru a se extrage valoarea din Optional se foloseste get()
+
+      int minim = persoanaStream.stream().min((a, b) -> a.getAge() - b.getAge()).get()
+sau
+
+      persoanaStream.stream().min(Comparator.comparingInt(Persoana::getAge)).get()
     
   **map**  : se produce un stream nou avand ca obiecte ceea ce produce mapperul
 

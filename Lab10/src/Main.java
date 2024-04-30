@@ -40,6 +40,10 @@ public class Main {
         //sau
         Arrays.sort(arrayPersoana, Comparator.comparing(Persoana::getName));
 
+        int[] array = {2,5,2,8,3,6};
+
+        Arrays.sort(array);
+
 
         //Moduri de afisare a unei liste
         List<Persoana> persoanaList = Arrays.asList(arrayPersoana);
@@ -79,7 +83,11 @@ public class Main {
         List<Persoana> persoanaStream = persoanaList.stream().filter(persoana -> persoana.getAge()>20).sorted(Comparator.comparing(Persoana::getName)).collect(Collectors.toList());
         System.out.println("persoanaStream = " + persoanaStream);
 
-        //mapper. Va fi oøista de String
+        //min
+        System.out.println("1 Varsta minima = " + persoanaStream.stream().min((a, b) -> a.getAge() - b.getAge()).get());
+        System.out.println("2 Varsta minima = " + persoanaStream.stream().min(Comparator.comparingInt(Persoana::getAge)).get());
+
+        //mapper. Va fi o lista de String
         List<String> names = persoanaList.stream().map(p-> p.getName()).collect(Collectors.toList());
         System.out.println("names = " + names);
         //sau
