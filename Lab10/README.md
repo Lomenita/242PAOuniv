@@ -213,14 +213,14 @@ sau
           summingDouble, summingLong, summingInt
      
             double sumaVarste = persoanaList.stream().collect(summingInt(Persoana::getAge));
- **groupingBy**
+    - groupingBy 
     
-    grupare persoane dupa varsta
-       Map<Integer, List<Persoana>> mapGoupingByAge = persoanaList.stream().collect(groupingBy(Persoana::getAge));
-
-    suma salariilor pe categorii de varsta:
-       Map<Integer, Integer> salariiByAge = persoanaList.stream().collect(groupingBy(Persoana::getAge, summingInt(Persoana::getWage)));
-        
+        grupare persoane dupa varsta
+           Map<Integer, List<Persoana>> mapGoupingByAge = persoanaList.stream().collect(groupingBy(Persoana::getAge));
+    
+        suma salariilor pe categorii de varsta:
+           Map<Integer, Integer> salariiByAge = persoanaList.stream().collect(groupingBy(Persoana::getAge, summingInt(Persoana::getWage)));
+            
   **reduce**
 
     calcul suma salariilor
