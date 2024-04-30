@@ -16,4 +16,4 @@
    Magazin are: numeMagazin, numarAngajati
 
    sa se afiseze magazinele grupate by numarAngajati
-   sa se afiseze suma angajatilor din toate magazinele
+   sa se afiseze suma angajatilor din toate magazinele cu stream
