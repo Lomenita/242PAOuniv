@@ -26,7 +26,8 @@ Expresie lambda cu instructiuni (se pun acolade):
 Expresiile lambda se folosesc si cu interfete functionale.
 
 Interfata functionala = o interfata care are o singura metoda neimplementata. 
-                  Se face marcarea cu @FunctionalInterface 
+                  Se face marcarea cu @FunctionalInterface . 
+                 Aceasta adnotare nu este obligatorie dar protejeaza sa nu se poata adauga mai multe metode neimplementate avand ca scop utilizarea cu lambda.
 
 **Exemplul 1**
 
