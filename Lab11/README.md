@@ -60,15 +60,29 @@ In ambele variante trebuie redefinita/implementata metoda run.
 ![StariThread.png](StariThread.png)
 
 Probleme ale thread urilor:
-deadlock
+
+**deadlock**
+
 cand threadurile pun lock pe obiecte dorite de alte thread uri
+
 Thread urile sunt in waiting.
 
-starvation
+**starvation**
+
 Apare atunci cand thread ul este permanent in starea de waiting pentru a fi executat.
 
-livelock
+**livelock**
+
 Este atunci cand un thread urile isi raspund cu o actiune care face undo sau revert reciproc.
+
 Thread urile isi raspund unul celuilalt dar nu se face niciun progres.
 
 # **SOCKETS**
+
+Sunt folositi pentru comunicarea in retea intre aplicatii de tip client/server.
+
+Aplicatia Server utilizeaza clasa ServerSocket pentru a defini portul pe care ruleaza serverul.
+
+Serverul accepta mesaje din partea clientului.
+
+Aplicatia de tip Client utilizeaza clasa Socket pentru a comunica cu serverul pe o adresa si un port.
