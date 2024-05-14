@@ -1,0 +1,30 @@
+Sa se implementeze un in memory cache pentru un obiect.
+Sistemul va avea o clasa in care tinem formatul obiectelor din cache, StoredObject, care va contine
+    Object myInfo; -> este de tip Object deoarece nu stim ce tip va avea obiectul in viitor;
+    boolean expired;
+    Timestamp expirationTime;
+
+    timpul curent este luat cu:
+    Timestamp crt = new Timestamp(System.currentTimeMillis());
+
+    exemplu setare timp pt expirare:
+     new Timestamp(System.currentTimeMillis() + 40)
+     va expira dupa 40ms dupa momentul cand a fost setat timpul de expirare
+
+Mai exista o clasa numita MyCache care extends Thread.
+In MyCache exista un obiect de tip Map in care  se stocheaza StoredObject primite. Key este int (1,2,3....), contorul,
+  iar Value este StoredObject.
+  exemplu:
+   private Map<String, Object> cache = new ConcurrentHashMap<>();
+   ConcurrentHashMap accepta accesari multiple. Mai multe threaduri pot accesa simultan fara a fi probleme de sincronizare.
+
+In metoda run, thread ul va primi sleep 2000ms si apoi va verifica toate StoredObject din Map si le va expira pe cele care au timpul depasit fata de timpul curent.
+                 Timestamp crt = new Timestamp(System.currentTimeMillis());
+                  if(crt.after(storedObject.getExpirationTime())){...}
+
+Clasa principala se numeste Main.
+In clasa Main se initializeaza cateva StoredObject, apoi se adauga in MyCache.
+Se starteaza thread ul MyCache, apoi se mai adauga 100 de StoredObject in MyCache, cu un delay de 100ms intre adaugari.
+Se logheaza ca sa se observe cum sunt expirate.
+
+

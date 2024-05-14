@@ -27,10 +27,10 @@ public class ChatClient {
         //conectarea la server
         try(
             Socket cs = new Socket(adresa, port);
-            //System.out.println("Conectare reusita la server!");
             //preluăm fluxurile de intrare/ieșire de la/către server
             DataInputStream dis = new DataInputStream(cs.getInputStream());
             DataOutputStream dos = new DataOutputStream(cs.getOutputStream());) {
+            System.out.println("Conectare reusita la server!");
             //citim o linie de text de la tastatură și o transmitem server-ului,
             //după care așteptam răspunsul server-ului
             //chat-ul se închide tastând cuvântul STOP
