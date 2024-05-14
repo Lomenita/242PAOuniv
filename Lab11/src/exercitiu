@@ -1,4 +1,4 @@
-Sa se implementeze un in memory cache pentru un obiect.
+Sa se implementeze un in memory cache pentru un obiect. Obiectele vor expira.
 Sistemul va avea o clasa in care tinem formatul obiectelor din cache, StoredObject, care va contine
     Object myInfo; -> este de tip Object deoarece nu stim ce tip va avea obiectul in viitor;
     boolean expired;
